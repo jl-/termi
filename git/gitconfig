@@ -126,9 +126,6 @@
   enabled = true
 [include]
   path = .gitconfig.user
-[user]
-	email = jlz.cius@gmail.com
-	name = jl
 [filter "lfs"]
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f

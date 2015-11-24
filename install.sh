@@ -26,6 +26,7 @@ main() {
   with_oh_my_zsh
   with_vim
   with_tmux
+  with_git
 
   printf "TERMI installed."
 }
@@ -103,6 +104,27 @@ with_tmux() {
   ln -sf $TERMI_PATH/tmux/tmux.conf $HOME/.tmux.conf
 
 }
+
+
+with_git() {
+  local pre_global_git_config=$(git config --global --list 2>/dev/null)
+  local config_str config_pair
+
+  # $HOME/.gitconfig => $TERMI_PATH/git/gitconfig
+  [ -s $HOME/.gitconfig ] && mv $HOME/.gitconfig $HOME/.gitconfig$TERMI_BAK
+  ln -sf $TERMI_PATH/git/gitconfig $HOME/.gitconfig
+
+  # $HOME/.gitignore => $TERMI_PATH/git/gitignore
+  [ -s $HOME/.gitignore ] && mv $HOME/.gitignore $HOME/.gitignore$TERMI_BAK
+  ln -sf $TERMI_PATH/git/gitignore $HOME/.gitignore
+
+  # Recover previous global git config
+  for config_str in $pre_global_git_config; do
+    config_pair=(${config_str//=/ })
+    git config --global ${config_pair[0]} ${config_pair[1]}
+  done
+}
+
 
 main
 

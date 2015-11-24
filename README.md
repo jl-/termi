@@ -45,6 +45,7 @@ Termi does nothing but:
 - oh-my-zsh
 - vim
 - vim-plug
+- git config
 
 ---
 ** WARNING: **
@@ -63,7 +64,7 @@ Termi does nothing but:
 │   │   ├── autoload
 │   │   │   └── plug.vim
 │   │   └── plugged
-│   │       ├── YouCompleteMe
+│   │       ├── YouCompleteMe(**this takes a long time to install.. be patient**)
 │   │       ├── ctrlp.vim
 │   │       ├── editorconfig-vim
 │   │       ├── lightline.vim
