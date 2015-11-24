@@ -46,7 +46,13 @@ Termi does nothing but:
 - vim
 - vim-plug
 
-## Screenshot
+---
+** WARNING: **
+
+- It works for me, and that's the whole point.  Will probably fail you. Your choice
+- If you tried and it failed, just rename those `~/*.pre-termi`s without `.pre-termi`
+
+---
 
 ```
 ├── install.sh
