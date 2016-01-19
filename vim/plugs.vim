@@ -21,10 +21,15 @@ Plug 'kien/ctrlp.vim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
+Plug 'pangloss/vim-javascript'
+Plug 'kylef/apiblueprint.vim'
+Plug 'fatih/vim-go'
+Plug 'taglist.vim'
 
 " ======================================
 " Appearance
 " =======================================
+Plug 'regedarek/ZoomWin'
 
 call plug#end()
 

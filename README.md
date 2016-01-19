@@ -1,23 +1,9 @@
-                 --
-                |  |
-                |  |
-           ____ |  |_____
-          (_____    _____)
-                |  |
-                |  |
-                |  |  ________     _____   __________   ()
-                |  |/   ____   \ /  ____)/  __    __  \(  )
-                |  |  /______\  |  |    |  |  |  |  |  |  |
-                |  |  |________/|  |    |  |  |  |  |  |  |
-                |  |  \_______  |  |    |  |  |  |  |  |  |
-                |  |\__________)|__|    |__|  |__|  |__|__|
-                 \/
-
-|          **Terminal with oh-my-zsh, vim, tmux, tmuxinator... All in one repo for easy mantainance**
+**Terminal with oh-my-zsh, vim, tmux, tmuxinator... All in one repo for easy mantainance**
 
 ---
 
 ## Installation
+
 
 Installed into `$HOME/.termi` by default
 ```bash

@@ -8,7 +8,7 @@
 # Suffix used to back up existed files
 TERMI_BAK='.pre-termi'
 
-main() {
+function main() {
   # If already installed, alert and exit
   if [ -d $TERMI_PATH ]; then
     echo "TERMI already installed in $TERMI_PATH .abort"
@@ -34,7 +34,7 @@ main() {
 
 
 
-with_oh_my_zsh() {
+function with_oh_my_zsh() {
   git clone git://github.com/robbyrussell/oh-my-zsh.git $TERMI_PATH/zsh/oh-my-zsh
 
   # Back up existed zsh configuation files
@@ -63,7 +63,7 @@ with_oh_my_zsh() {
 
 
 
-with_vim() {
+function with_vim() {
   local UNCOMMENT_HOOK='" #UNCOMMENT_HOOK#'
   local INJECTION_HOOK='#INJECTION_HOOK#'
 
@@ -76,7 +76,9 @@ with_vim() {
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   sed -i '' -e "s#\$VIM_PATH#$TERMI_PATH/vim#" $TERMI_PATH/vim/plugs.vim
+  sed -i '' -e "s#\$VIM_PATH#$TERMI_PATH/vim#" $TERMI_PATH/vim/.vimrc
   sed -i '' -e "s#\$DOT_VIM_PATH#$TERMI_PATH/vim/.vim#" $TERMI_PATH/vim/plugs.vim
+
 
   # Inject plugs defination list
   sed -i '' -e "/$INJECTION_HOOK vim-plug/ a\\
@@ -85,6 +87,14 @@ with_vim() {
 
   ln -sf $TERMI_PATH/vim/.vim $HOME/.vim
   ln -sf $TERMI_PATH/vim/.vimrc $HOME/.vimrc
+
+  # for nvim
+  #if [ -d $HOME/.config ]; then
+  #  mkdir -p $HOME/.config/nvim
+  #  ln -sf $TERMI_PATH/vim/.vim $HOME/.config/nvim
+  #  ln -sf $TERMI_PATH/vim/.vimrc $HOME/.config/nvim/init.vim
+  #fi
+
 
   if ! hash cmake &>/dev/null; then
     brew install CMake
@@ -97,7 +107,7 @@ with_vim() {
 
 }
 
-with_tmux() {
+function with_tmux() {
   # Back up existed `~/.tmux.conf`
   [ -s $HOME/.tmux.conf ] && mv $HOME/.tmux.conf $HOME/.tmux.conf$TERMI_BAK
 
@@ -106,7 +116,7 @@ with_tmux() {
 }
 
 
-with_git() {
+function with_git() {
   local pre_global_git_config=$(git config --global --list 2>/dev/null)
   local config_str config_pair
 
