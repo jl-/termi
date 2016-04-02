@@ -11,11 +11,15 @@ TERMI_BAK='.pre-termi'
 function main() {
   # If already installed, alert and exit
   if [ -d $TERMI_PATH ]; then
-    echo "TERMI already installed in $TERMI_PATH .abort"
-    exit
+    #if [ "$1" == "-f" ]; then
+      uninstall_termi
+    #else
+    #  echo "TERMI already installed in $TERMI_PATH .abort"
+    #  exit
+    #fi
   fi
 
-  echo "Installing TERMI ..."
+  echo "Installing TERMI Into ${TERMI_PATH} ..."
 
   # for dev
   #cp -r $HOME/termi $TERMI_PATH
@@ -23,6 +27,7 @@ function main() {
   git clone http://github.com/jl-/termi.git $TERMI_PATH
   cd $TERMI_PATH
 
+  with_brew
   with_oh_my_zsh
   with_vim
   with_tmux
@@ -31,6 +36,25 @@ function main() {
   printf "TERMI installed."
 }
 
+function uninstall_termi() {
+  [ -s ${HOME}/.zshrc${TERMI_BAK} ] && mv ${HOME}/.zshrc${TERMI_BAK} $HOME/.zshrc
+
+  [ -d ${HOME}/.vim${TERMI_BAK} ] && mv ${HOME}/.vim${TERMI_BAK} ${HOME}/.vim
+  [ -s $HOME/.vimrc${TERMI_BAK} ] && mv ${HOME}/.vimrc${TERMI_BAK} ${HOME}/.vimrc
+
+  [ -s ${HOME}/.tmux.conf${TERMI_BAK} ] && mv ${HOME}/.tmux.conf${TERMI_BAK} ${HOME}/.tmux.conf
+
+  [ -s ${HOME}/.gitconfig${TERMI_BAK} ] && mv ${HOME}/.gitconfig${TERMI_BAK} ${HOME}/.gitconfig
+  [ -s ${HOME}/.gitignore${TERMI_BAK} ] && mv ${HOME}/.gitignore${TERMI_BAK} ${HOME}/.gitignore
+
+  [ -d ${TERMI_PATH} ] && rm -rf ${TERMI_PATH}
+}
+
+function with_brew() {
+  if ! hash brew &>/dev/null; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+}
 
 
 
