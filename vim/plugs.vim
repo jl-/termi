@@ -29,7 +29,7 @@ Plug 'taglist.vim'
 " ======================================
 " Appearance
 " =======================================
-Plug 'regedarek/ZoomWin'
+Plug 'troydm/zoomwintab.vim'
 
 call plug#end()
 
@@ -41,5 +41,3 @@ let plugsettings = s:vim_path.'/settings'
 for fpath in split(globpath(plugsettings, '*.vim'), '\n')
 " #UNCOMMENT_HOOK#  exe 'source' fpath
 endfor
-
-

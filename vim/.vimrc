@@ -27,13 +27,13 @@ let mapleader=","
 
 " ================ Turn Off Swap Files ==============
 
-" set noswapfile
-" set nobackup
-" set nowb
-let s:vim_path='$VIM_PATH'
-set backupdir=s:vim_path.'/backup//'
-set directory=s:vim_path.'/swap//'
-set undodir=s:vim_path.'/undo//'
+set noswapfile
+set nobackup
+set nowb
+" let s:vim_path='$VIM_PATH'
+" set backupdir=s:vim_path.'/backup//'
+" set directory=s:vim_path.'/swap//'
+" set undodir=s:vim_path.'/undo//'
 
 
 " ================ Indentation ======================
