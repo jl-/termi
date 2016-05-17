@@ -1,7 +1,7 @@
 # Termi💥
 My personal terminal integration with oh-my-zsh, vim/nvim, tmux, tmuxinator, git etc. All in one repo for easy mantainance
 
----
+![Vim Screenshot](https://cloud.githubusercontent.com/assets/6291986/15315937/11c18402-1c4d-11e6-90c5-3822e7b3e00c.png)
 
 ## Installation
 
