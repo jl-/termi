@@ -25,6 +25,11 @@ Plug 'pangloss/vim-javascript'
 Plug 'kylef/apiblueprint.vim'
 Plug 'fatih/vim-go'
 Plug 'taglist.vim'
+Plug 'mattn/emmet-vim'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
 
 " ======================================
 " Appearance

@@ -29,12 +29,23 @@ function main() {
   git clone http://github.com/jl-/termi.git ${TERMI_PATH}
   cd ${TERMI_PATH}
 
+  # for dev
+  # @TODO remove when released
+  # cp -R $HOME/termi $HOME/.termi
+
   with_brew
-  confirm '\e[32mwith oh-my-zsh?\e[0m' && with_oh_my_zsh
-  confirm '\e[32mwith vim?\e[0m' && with_vim
-  confirm '\e[32mwith nvim?\e[0m' && with_nvim
-  confirm '\e[32mwith tmux?\e[0m' && with_tmux
-  confirm '\e[32mwith git?\e[0m' && with_git
+  local _with_oh_my_zsh=false _with_vim=false _with_nvim=false _with_tmux=false _with_git=false
+  confirm '\e[32mwith oh-my-zsh?\e[0m' && _with_oh_my_zsh=true
+  confirm '\e[32mwith vim?\e[0m' && _with_vim=true
+  confirm '\e[32mwith nvim?\e[0m' && _with_nvim=true
+  confirm '\e[32mwith tmux?\e[0m' && _with_tmux=true
+  confirm '\e[32mwith git?\e[0m' && _with_git=true
+
+  [ ${_with_oh_my_zsh} == true ] && with_oh_my_zsh
+  [ ${_with_vim} == true ] && with_vim
+  [ ${_with_nvim} == true ] && with_nvim
+  [ ${_with_tmux} == true ] && with_tmux
+  [ ${_with_git} == true ] && with_git
 
   echo -e "\033[32mTERMI installed into ${TERMI_PATH}.\033[0m"
 }
@@ -59,26 +70,35 @@ function with_brew() {
   fi
 }
 
-
-
 function with_oh_my_zsh() {
-  git clone git://github.com/robbyrussell/oh-my-zsh.git ${TERMI_PATH}/zsh/oh-my-zsh
+  local readonly OH_MY_ZSH_PATH=${TERMI_PATH}/zsh/oh-my-zsh
+  local readonly ZSHRC_PATH=${TERMI_PATH}/zsh/.zshrc
+  local readonly PRE_ZSHRC_HOOK='#PRE_ZSHRC_HOOK#'
+
+  git clone git://github.com/robbyrussell/oh-my-zsh.git ${OH_MY_ZSH_PATH}
 
   # Back up existed zsh configuation files
-  [ -s ${HOME}/.zshrc ] && mv ${HOME}/.zshrc ${HOME}/.zshrc${TERMI_BAK}
+  if [ -s ${HOME}/.zshrc ]; then
+    mv ${HOME}/.zshrc ${HOME}/.zshrc${TERMI_BAK}
+
+    # source previous .zshrc
+    sed -i '' -e "/${PRE_ZSHRC_HOOK}/ a\\
+    . ${HOME}/.zshrc${TERMI_BAK}
+    " ${ZSHRC_PATH}
+  fi
 
   # Export ZSH for oh-my-zsh
   sed -i '' -e "/^export ZSH=/ c\\
-  export ZSH=${TERMI_PATH}/zsh/oh-my-zsh
-  " ${TERMI_PATH}/zsh/.zshrc
+  export ZSH=${OH_MY_ZSH_PATH}
+  " ${ZSHRC_PATH}
 
   # Copy current PATH to .zshrc
-  sed -i '' -e "/#EXPOSE PATH#/ a\\
-  export PATH=${PATH}
-  " ${TERMI_PATH}/zsh/.zshrc
+  #sed -i '' -e "/#EXPOSE PATH#/ a\\
+  #export PATH=${PATH}
+  #" ${ZSHRC_PATH}
 
   # Link zshrc
-  ln -sf ${TERMI_PATH}/zsh/.zshrc ${HOME}/.zshrc
+  ln -sf ${ZSHRC_PATH} ${HOME}/.zshrc
 
   # If not using zsh, then set
   if [[ ! $SHELL =~ zsh$ ]]; then
