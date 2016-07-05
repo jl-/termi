@@ -28,7 +28,9 @@ Plug 'taglist.vim'
 Plug 'mattn/emmet-vim'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-markdown'
+Plug 'reedes/vim-pencil'
+Plug 'junegunn/goyo.vim'
 
 
 " ======================================

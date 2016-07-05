@@ -133,7 +133,6 @@ function with_vim() {
   ln -sf ${TERMI_PATH}/vim/.vim ${HOME}/.vim
   ln -sf ${TERMI_PATH}/vim/.vimrc ${HOME}/.vimrc
 
-
   if ! hash cmake &>/dev/null; then
     brew install CMake
   fi
