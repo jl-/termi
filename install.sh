@@ -64,12 +64,12 @@ function main() {
 
   echo -e "\033[32mInstalling TERMI Into ${TERMI_PATH} ...\033[0m"
 
-  git clone http://github.com/jl-/termi.git ${TERMI_PATH}
-  cd ${TERMI_PATH}
+  # git clone http://github.com/jl-/termi.git ${TERMI_PATH}
+  # cd ${TERMI_PATH}
 
   # for dev
   # @TODO remove when released
-  # cp -R $HOME/termi $HOME/.termi
+  cp -R $HOME/termi $HOME/.termi
 
   with_brew
   local _with_oh_my_zsh=false _with_vim=false _with_nvim=false _with_tmux=false _with_git=false
@@ -183,8 +183,10 @@ function with_vim() {
 
 function with_nvim() {
   mkdir -p ${HOME}/.config/nvim
-  ln -sf ${TERMI_PATH}/vim/.vim ${HOME}/.config/nvim
-  ln -sf ${TERMI_PATH}/vim/.vimrc ${HOME}/.config/nvim/init.vim
+  ln -sf ${TERMI_PATH}/vim/.vim/* ${HOME}/.config/nvim
+  sed -i '' -e "s#\$VIM_PATH#${TERMI_PATH}/vim#" ${TERMI_PATH}/vim/nvim_init.vim
+  sed -i '' -e "s#\$DOT_VIM_PATH#${TERMI_PATH}/vim/.vim#" ${TERMI_PATH}/vim/nvim_init.vim
+  ln -sf ${TERMI_PATH}/vim/nvim_init.vim ${HOME}/.config/nvim/init.vim
 }
 
 function with_tmux() {

@@ -18,19 +18,26 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'altercation/vim-colors-solarized'
 Plug 'kien/ctrlp.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'kylef/apiblueprint.vim'
 Plug 'fatih/vim-go'
-Plug 'taglist.vim'
+Plug 'vim-scripts/taglist.vim'
 Plug 'mattn/emmet-vim'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-markdown'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/goyo.vim'
+Plug 'darthmall/vim-vue'
+" Plug 'posva/vim-vue'
+Plug 'quramy/tsuquyomi'
+Plug 'Shougo/vimproc.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'digitaltoad/vim-pug'
 
 
 " ======================================
