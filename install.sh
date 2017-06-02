@@ -210,10 +210,7 @@ function with_git() {
   ln -sf ${TERMI_PATH}/git/gitignore ${HOME}/.gitignore
 
   # Recover previous global git config
-  for config_str in ${pre_global_git_config}; do
-    config_pair=(${config_str//=/ })
-    git config --global ${config_pair[0]} ${config_pair[1]}
-  done
+  echo "$pre_global_git_config" | awk -F '=' '{system("git config --global "$1" \""$2"\"")}'
 }
 
 main
