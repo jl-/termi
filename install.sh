@@ -98,6 +98,7 @@ function uninstall_termi() {
 
   [ -s ${HOME}/.gitconfig${TERMI_BAK} ] && mv ${HOME}/.gitconfig${TERMI_BAK} ${HOME}/.gitconfig
   [ -s ${HOME}/.gitignore${TERMI_BAK} ] && mv ${HOME}/.gitignore${TERMI_BAK} ${HOME}/.gitignore
+  [ -s ${HOME}/.gitmessage${TERMI_BAK} ] && mv ${HOME}/.gitmessage${TERMI_BAK} ${HOME}/.gitmessage
 
   [ -d ${TERMI_PATH} ] && rm -rf ${TERMI_PATH}
 }
@@ -114,6 +115,7 @@ function with_oh_my_zsh() {
   local readonly PRE_ZSHRC_HOOK='#PRE_ZSHRC_HOOK#'
 
   git clone git://github.com/robbyrussell/oh-my-zsh.git ${OH_MY_ZSH_PATH}
+  git clone git://github.com/zsh-users/zsh-autosuggestions ${OH_MY_ZSH_PATH}/plugins/zsh-autosuggestions
 
   # Back up existed zsh configuation files
   if [ -s ${HOME}/.zshrc ]; then
@@ -198,8 +200,8 @@ function with_tmux() {
 
 
 function with_git() {
-  local pre_global_git_config=$(git config --global --list 2>/dev/null)
   local config_str config_pair
+  local pre_global_git_config=$(git config --global --list 2>/dev/null)
 
   # $HOME/.gitconfig => $TERMI_PATH/git/gitconfig
   [ -s ${HOME}/.gitconfig ] && mv ${HOME}/.gitconfig ${HOME}/.gitconfig${TERMI_BAK}
@@ -209,8 +211,13 @@ function with_git() {
   [ -s ${HOME}/.gitignore ] && mv ${HOME}/.gitignore ${HOME}/.gitignore${TERMI_BAK}
   ln -sf ${TERMI_PATH}/git/gitignore ${HOME}/.gitignore
 
+  # $HOME/.gitmessage => $TERMI_PATH/git/.gitmessage
+  [ -s ${HOME}/.gitmessage ] && mv ${HOME}/.gitmessage ${HOME}/.gitmessage${TERMI_BAK}
+  ln -sf ${TERMI_PATH}/git/gitmessage ${HOME}/.gitmessage
+
   # Recover previous global git config
   echo "$pre_global_git_config" | awk -F '=' '{system("git config --global "$1" \""$2"\"")}'
+  git config --global commit.template ${HOME}/.gitmessage
 }
 
 main

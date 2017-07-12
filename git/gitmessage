@@ -1,0 +1,50 @@
+# If this commit is applied, it will...
+
+# Why was this change made?
+
+# Any references to tickets, articles etc?
+
+
+# ==== The Seven Rules ====
+# 1. Separate subject from body with a blank line
+# 2. Limit the subject line to 50 characters
+# 3. Capitalize the subject line
+# 4. Do not end the subject line with a period
+# 5. Use the imperative mood in the subject line
+# 6. Wrap the body at 72 characters
+# 7. Use the body to explain what and why vs. how
+
+# ==== Emojis ====
+# 🎨  :art:  Improving structure / format of the code.
+# ⚡️  :zap:  Improving performance.
+# 🔥  :fire: Removing code or files.
+# 🐛  :bug:  Fixing a bug.
+# 🚑  :ambulance:  Critical hotfix.
+# ✨  :sparkles: Introducing new features.
+# 📝  :memo: Writing docs.
+# 🚀  :rocket: Deploying stuff.
+# 💄  :lipstick: Updating the UI and style files.
+# 🎉  :tada: Initial commit.
+# ✅  :white_check_mark: Adding tests.
+# 🔒  :lock: Fixing security issues.
+# 🔖  :bookmark: Releasing / Version tags.
+# 🚨  :rotating_light: Removing linter warnings.
+# 🚧  :construction: Work in progress.
+# ⬇️   :arrow_down: Downgrading dependencies.
+# ⬆️   :arrow_up: Upgrading dependencies.
+# 📈  :chart_with_upwards_trend: Adding analytics or tracking code.
+# 🔨  :hammer: Heavy refactoring.
+# ➖  :heavy_minus_sign: Removing a dependency.
+# ➕  :heavy_plus_sign:  Adding a dependency.
+# 🔧  :wrench: Changing configuration files.
+# ✏️   :pencil2:  Fixing typos.
+# 💩  :hankey: Writing bad code that needs to be improved.
+# ⏪  :rewind: Reverting changes.
+# 🔀  :twisted_rightwards_arrows:  Merging branches.
+# 👽  :alien:  Updating code due to external API changes.
+# 🚚  :truck:  Moving or renaming files.
+# 💥  :boom:  Introducing breaking changes.
+# 👌  :ok_hand:  Updating code due to code review changes.
+# 💬  :speech_balloon:  Updating text and literals.
+# https://gitmoji.carloscuesta.me/
+
