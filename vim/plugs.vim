@@ -18,7 +18,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'altercation/vim-colors-solarized'
 Plug 'kien/ctrlp.vim'
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'

@@ -51,7 +51,7 @@ ZSH_THEME="pygmalion"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmuxinator)
+plugins=(git git-extras zsh-autosuggestions)
 
 # User configuration
 # #EXPOSE PATH#
