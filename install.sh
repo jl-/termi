@@ -8,7 +8,8 @@ BAK_PATH=${TERMI_PATH}/.backup
 
 # main
 function bootstrap() {
-  cp -R . ${TERMI_PATH}
+  # cp -R . ${TERMI_PATH}
+  git clone https://github.com/jl-/termi.git ${TERMI_PATH}
   [ ! -d ${BAK_PATH} ] && mkdir ${BAK_PATH}
 
   ensure_brew
