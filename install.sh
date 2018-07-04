@@ -1,223 +1,114 @@
-#! /bin/bash
+#!/usr/bin/env bash
 set -e
 
-################################## utils
-# . "$(dirname $0)/utils.sh"
-# @param: target, item1, ..., itemn
-function is_in_array() {
-  local target=$1; shift
-  local item
-  for item; do
-    [ $item == $target ] && return 0
-  done
-  return 1
-}
-
-# @param: question, question_warning, allowed_answer1, ...allowed_answern
-function ask_question() {
-  local readonly question=$1; shift
-  local readonly question_warning=${1:-$question}; shift
-  local readonly allowed_answers=${@}
-  local answer
-
-  printf '%b ' 1>&2 $question
-  read answer
-  while ! $(is_in_array $answer $allowed_answers); do
-    printf '%b ' 1>&2 $question_warning
-    read answer
-  done
-
-  echo $answer
-}
-
-# @param: question, question_warning
-function confirm() {
-  local readonly question="$1 [Y/N]"
-  local readonly question_warning="${2:-$1} [Y/N]"
-  local readonly answer=$(ask_question "$question" "$question_warning" Y N)
-  [ $answer == 'Y' ] && return 0 || return 1
-}
-###################################### end: utils
-
-
-
-
 # Installation path defaults to `$HOME/.termi`
-# You may custom this by setting `TERMI_PATH`:
-# `export TERMI_PATH="some path"; sh -c "$(curl -fsSL https://raw.github.com/jl-/termi/master/install.sh)"`
+# For customization, set `TERMI_PATH` environment variable
 : ${TERMI_PATH:=${HOME}/.termi}
+BAK_PATH=${TERMI_PATH}/.backup
 
-# Suffix used to back up existed files
-TERMI_BAK='.pre-termi'
+# main
+function bootstrap() {
+  cp -R . ${TERMI_PATH}
+  [ ! -d ${BAK_PATH} ] && mkdir ${BAK_PATH}
 
-function main() {
-  # If already installed, ask whether to reinstall
-  if [ -d ${TERMI_PATH} ]; then
-    echo -e "\033[33mTERMI is already installed in ${TERMI_PATH}.\033[0m"
-    if confirm '\e[5;31mReinstall?\e[0m'; then
-      uninstall_termi
-    else
-      echo 'Aborted.'
-      exit
-    fi
-  fi
-
-  echo -e "\033[32mInstalling TERMI Into ${TERMI_PATH} ...\033[0m"
-
-  # git clone http://github.com/jl-/termi.git ${TERMI_PATH}
-  # cd ${TERMI_PATH}
-
-  # for dev
-  # @TODO remove when released
-  cp -R $HOME/termi $HOME/.termi
-
-  with_brew
-  local _with_oh_my_zsh=false _with_vim=false _with_nvim=false _with_tmux=false _with_git=false
-  confirm '\e[32mwith oh-my-zsh?\e[0m' && _with_oh_my_zsh=true
-  confirm '\e[32mwith vim?\e[0m' && _with_vim=true
-  confirm '\e[32mwith nvim?\e[0m' && _with_nvim=true
-  confirm '\e[32mwith tmux?\e[0m' && _with_tmux=true
-  confirm '\e[32mwith git?\e[0m' && _with_git=true
-
-  [ ${_with_oh_my_zsh} == true ] && with_oh_my_zsh
-  [ ${_with_vim} == true ] && with_vim
-  [ ${_with_nvim} == true ] && with_nvim
-  [ ${_with_tmux} == true ] && with_tmux
-  [ ${_with_git} == true ] && with_git
-
-  echo -e "\033[32mTERMI installed into ${TERMI_PATH}.\033[0m"
+  ensure_brew
+  with_omz
+  with_git
+  with_vim
 }
 
-function uninstall_termi() {
-  [ -s ${HOME}/.zshrc${TERMI_BAK} ] && mv ${HOME}/.zshrc${TERMI_BAK} ${HOME}/.zshrc
-
-  [ -d ${HOME}/.vim${TERMI_BAK} ] && mv ${HOME}/.vim${TERMI_BAK} ${HOME}/.vim
-  [ -s ${HOME}/.vimrc${TERMI_BAK} ] && mv ${HOME}/.vimrc${TERMI_BAK} ${HOME}/.vimrc
-
-  [ -s ${HOME}/.tmux.conf${TERMI_BAK} ] && mv ${HOME}/.tmux.conf${TERMI_BAK} ${HOME}/.tmux.conf
-
-  [ -s ${HOME}/.gitconfig${TERMI_BAK} ] && mv ${HOME}/.gitconfig${TERMI_BAK} ${HOME}/.gitconfig
-  [ -s ${HOME}/.gitignore${TERMI_BAK} ] && mv ${HOME}/.gitignore${TERMI_BAK} ${HOME}/.gitignore
-  [ -s ${HOME}/.gitmessage${TERMI_BAK} ] && mv ${HOME}/.gitmessage${TERMI_BAK} ${HOME}/.gitmessage
-
-  [ -d ${TERMI_PATH} ] && rm -rf ${TERMI_PATH}
-}
-
-function with_brew() {
-  if ! hash brew &>/dev/null; then
+function ensure_brew() {
+  if ! command -v brew &>/dev/null; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 }
 
-function with_oh_my_zsh() {
-  local readonly OH_MY_ZSH_PATH=${TERMI_PATH}/zsh/oh-my-zsh
-  local readonly ZSHRC_PATH=${TERMI_PATH}/zsh/.zshrc
-  local readonly PRE_ZSHRC_HOOK='#PRE_ZSHRC_HOOK#'
+function with_omz() {
+  local -r omz_path=${TERMI_PATH}/zsh/omz
+  local -r rc_dpath=${HOME}/.zshrc
+  local -r rc_spath=${TERMI_PATH}/zsh/.zshrc
 
-  git clone git://github.com/robbyrussell/oh-my-zsh.git ${OH_MY_ZSH_PATH}
-  git clone git://github.com/zsh-users/zsh-autosuggestions ${OH_MY_ZSH_PATH}/plugins/zsh-autosuggestions
+  git clone git://github.com/robbyrussell/oh-my-zsh.git ${omz_path}
+  git clone git://github.com/zsh-users/zsh-autosuggestions ${omz_path}/plugins/zsh-autosuggestions
 
   # Back up existed zsh configuation files
-  if [ -s ${HOME}/.zshrc ]; then
-    mv ${HOME}/.zshrc ${HOME}/.zshrc${TERMI_BAK}
-
-    # source previous .zshrc
-    sed -i '' -e "/${PRE_ZSHRC_HOOK}/ a\\
-    . ${HOME}/.zshrc${TERMI_BAK}
-    " ${ZSHRC_PATH}
+  if [ -f ${rc_dpath} ] && [ ! -h ${rc_dpath} ]; then
+    mv ${rc_dpath} ${BAK_PATH}/.zshrc
   fi
 
   # Export ZSH for oh-my-zsh
   sed -i '' -e "/^export ZSH=/ c\\
-  export ZSH=${OH_MY_ZSH_PATH}
-  " ${ZSHRC_PATH}
-
-  # Copy current PATH to .zshrc
-  #sed -i '' -e "/#EXPOSE PATH#/ a\\
-  #export PATH=${PATH}
-  #" ${ZSHRC_PATH}
+  export ZSH=${omz_path}
+  " ${rc_spath}
 
   # Link zshrc
-  ln -sf ${ZSHRC_PATH} ${HOME}/.zshrc
+  ln -sf ${rc_spath} ${rc_dpath}
 
-  # If not using zsh, then set
-  if [[ ! $SHELL =~ zsh$ ]]; then
-    if hash chsh &>/dev/null; then
-      chsh -s $(grep /zsh$ /etc/shells | tail -1)
-    fi
+  # Set as default SHELL
+  if [[ ! $SHELL =~ zsh$ ]] && command -v chsh &>/dev/null; then
+    chsh -s $(which zsh)
   fi
+}
+
+function with_git() {
+  # .gitconfig, .gitmessage file paths
+  local -r cfg_dpath=${HOME}/.gitconfig
+  local -r cfg_spath=${TERMI_PATH}/git/gitconfig
+  local -r msg_dpath=${HOME}/.gitmessage
+  local -r msg_spath=${TERMI_PATH}/git/gitmessage
+
+  # Current global config
+  local -r curr_cfg=$(git config --global --list 2>/dev/null)
+
+  # Backup .gitconfig, .gitmessage
+  if [ -f ${cfg_dpath} ] && [ ! -h ${cfg_dpath} ]; then
+    mv ${cfg_dpath} ${BAK_PATH}/.gitconfig
+  fi
+  if [ -f ${msg_dpath} ] && [ ! -h ${msg_dpath} ]; then
+    mv ${msg_dpath} ${BAK_PATH}/.gitmessage
+  fi
+
+  # Link .gitconfig, .gitmessage
+  ln -sf ${cfg_spath} ${cfg_dpath}
+  ln -sf ${msg_spath} ${msg_dpath}
+
+  git config --global commit.template ${msg_dpath}
+  # Append previous global config
+  echo "$curr_cfg" | awk -F '=' '{system("git config --global "$1" \""$2"\"")}' &>/dev/null || true
 }
 
 function with_vim() {
-  local UNCOMMENT_HOOK='" #UNCOMMENT_HOOK#'
-  local INJECTION_HOOK='#INJECTION_HOOK#'
+  # .vim, .vimrc paths
+  local -r vim_dpath=${HOME}/.vim
+  local -r vim_spath=${TERMI_PATH}/vim/.vim
+  local -r rc_dpath=${HOME}/.vimrc
+  local -r rc_spath=${TERMI_PATH}/vim/.vimrc
 
-  # Back up .vim and .vimrc if existed
-  [ -d ${HOME}/.vim ] && mv ${HOME}/.vim ${HOME}/.vim${TERMI_BAK}
-  [ -s ${HOME}/.vimrc ] && mv ${HOME}/.vimrc ${HOME}/.vimrc${TERMI_BAK}
+  # Backup .vim and .vimrc
+  if [ -d ${vim_dpath} ] && [ ! -h ${vim_dpath} ]; then
+    mv ${vim_dpath} ${BAK_PATH}/.vim
+  fi
+  if [ -f ${rc_dpath} ] && [ ! -h ${rc_dpath} ]; then
+    mv ${rc_dpath} ${BAK_PATH}/.vimrc
+  fi
 
   # Install vim-plug as plugin manager
-  curl -fLo ${TERMI_PATH}/vim/.vim/autoload/plug.vim --create-dirs \
+  curl -fLo ${vim_spath}/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   sed -i '' -e "s#\$VIM_PATH#${TERMI_PATH}/vim#" ${TERMI_PATH}/vim/plugs.vim
-  sed -i '' -e "s#\$VIM_PATH#${TERMI_PATH}/vim#" ${TERMI_PATH}/vim/.vimrc
-  sed -i '' -e "s#\$DOT_VIM_PATH#${TERMI_PATH}/vim/.vim#" ${TERMI_PATH}/vim/plugs.vim
 
+  ln -sf ${rc_spath} ${rc_dpath}
+  ln -sf ${vim_spath} ${vim_dpath}
 
-  # Inject plugs defination list
-  sed -i '' -e "/${INJECTION_HOOK} vim-plug/ a\\
-  so ${TERMI_PATH}/vim/plugs.vim
-  " ${TERMI_PATH}/vim/.vimrc
-
-  ln -sf ${TERMI_PATH}/vim/.vim ${HOME}/.vim
-  ln -sf ${TERMI_PATH}/vim/.vimrc ${HOME}/.vimrc
-
-  if ! hash cmake &>/dev/null; then
+  if ! command -v cmake &>/dev/null; then
     brew install CMake
   fi
 
+  # Install plugins
   vim +PlugInstall +qall!
-
-  # load plugin settings
-  sed -i '' -e "s/${UNCOMMENT_HOOK}//g" ${TERMI_PATH}/vim/plugs.vim
+  # Load plugin settings
+  sed -i '' -e "s/\" #UNCOMMENT_HOOK#//g" ${TERMI_PATH}/vim/plugs.vim
 }
 
-function with_nvim() {
-  mkdir -p ${HOME}/.config/nvim
-  ln -sf ${TERMI_PATH}/vim/.vim/* ${HOME}/.config/nvim
-  sed -i '' -e "s#\$VIM_PATH#${TERMI_PATH}/vim#" ${TERMI_PATH}/vim/nvim_init.vim
-  sed -i '' -e "s#\$DOT_VIM_PATH#${TERMI_PATH}/vim/.vim#" ${TERMI_PATH}/vim/nvim_init.vim
-  ln -sf ${TERMI_PATH}/vim/nvim_init.vim ${HOME}/.config/nvim/init.vim
-}
-
-function with_tmux() {
-  # Back up existed `~/.tmux.conf`
-  [ -s ${HOME}/.tmux.conf ] && mv ${HOME}/.tmux.conf ${HOME}/.tmux.conf${TERMI_BAK}
-
-  ln -sf ${TERMI_PATH}/tmux/tmux.conf ${HOME}/.tmux.conf
-}
-
-
-function with_git() {
-  local config_str config_pair
-  local pre_global_git_config=$(git config --global --list 2>/dev/null)
-
-  # $HOME/.gitconfig => $TERMI_PATH/git/gitconfig
-  [ -s ${HOME}/.gitconfig ] && mv ${HOME}/.gitconfig ${HOME}/.gitconfig${TERMI_BAK}
-  ln -sf ${TERMI_PATH}/git/gitconfig ${HOME}/.gitconfig
-
-  # $HOME/.gitignore => $TERMI_PATH/git/gitignore
-  [ -s ${HOME}/.gitignore ] && mv ${HOME}/.gitignore ${HOME}/.gitignore${TERMI_BAK}
-  ln -sf ${TERMI_PATH}/git/gitignore ${HOME}/.gitignore
-
-  # $HOME/.gitmessage => $TERMI_PATH/git/.gitmessage
-  [ -s ${HOME}/.gitmessage ] && mv ${HOME}/.gitmessage ${HOME}/.gitmessage${TERMI_BAK}
-  ln -sf ${TERMI_PATH}/git/gitmessage ${HOME}/.gitmessage
-
-  # Recover previous global git config
-  echo "$pre_global_git_config" | awk -F '=' '{system("git config --global "$1" \""$2"\"")}'
-  git config --global commit.template ${HOME}/.gitmessage
-}
-
-main
+bootstrap

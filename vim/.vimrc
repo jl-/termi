@@ -33,10 +33,6 @@ let mapleader=","
 set noswapfile
 set nobackup
 set nowb
-" let s:vim_path='$VIM_PATH'
-" set backupdir=s:vim_path.'/backup//'
-" set directory=s:vim_path.'/swap//'
-" set undodir=s:vim_path.'/undo//'
 
 
 " ================ Indentation ======================
@@ -98,8 +94,7 @@ set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
 
 " ================ Plugins ========================
-" #INJECTION_HOOK# vim-plug
-
+exec 'so ' . fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/plugs.vim'
 
 " ================ Custom ========================
 let g:syntastic_javascript_checkers = ['eslint']

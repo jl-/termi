@@ -1,5 +1,5 @@
 let s:vim_path = '$VIM_PATH'
-let s:dot_vim_path = '$DOT_VIM_PATH'
+let s:dot_vim_path = s:vim_path.'/.vim'
 let g:plug_timeout = 6000
 call plug#begin(s:dot_vim_path.'/plugged')
 
@@ -9,19 +9,16 @@ call plug#begin(s:dot_vim_path.'/plugged')
 " Project
 " =======================================
 Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'scrooloose/syntastic'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'embear/vim-localvimrc'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'altercation/vim-colors-solarized'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'kylef/apiblueprint.vim'
 Plug 'fatih/vim-go'
@@ -33,7 +30,6 @@ Plug 'tpope/vim-markdown'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/goyo.vim'
 Plug 'darthmall/vim-vue'
-" Plug 'posva/vim-vue'
 Plug 'quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim'
 Plug 'easymotion/vim-easymotion'
