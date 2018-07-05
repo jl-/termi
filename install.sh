@@ -110,6 +110,14 @@ function with_vim() {
   vim +PlugInstall +qall!
   # Load plugin settings
   sed -i '' -e "s/\" #UNCOMMENT_HOOK#//g" ${TERMI_PATH}/vim/plugs.vim
+
+  # Config Neovim
+  if command -v nvim &>/dev/null; then
+    local -r nvim_dpath=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+    mkdir -p ${nvim_dpath}
+    ln -sf ${TERMI_PATH}/vim/nvim_init.vim ${nvim_dpath}/init.vim
+  fi
 }
 
 bootstrap
+
