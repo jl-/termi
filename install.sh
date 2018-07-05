@@ -16,6 +16,7 @@ function bootstrap() {
   with_omz
   with_git
   with_vim
+  with_tmux
 }
 
 function ensure_brew() {
@@ -117,6 +118,21 @@ function with_vim() {
     mkdir -p ${nvim_dpath}
     ln -sf ${TERMI_PATH}/vim/nvim_init.vim ${nvim_dpath}/init.vim
   fi
+}
+
+function with_tmux() {
+  local -r cfg_dpath=${HOME}/.tmux.conf
+
+  if ! command -v tmux &>/dev/null; then
+    brew install tmux
+  fi
+
+  # Backup `~/.tmux.conf`
+  if [ -f ${cfg_dpath} ] && [ ! -h ${cfg_dpath} ]; then
+    mv ${cfg_dpath} ${BAK_PATH}/.tmux.conf
+  fi
+
+  ln -sf ${TERMI_PATH}/tmux/tmux.conf ${cfg_dpath}
 }
 
 bootstrap
