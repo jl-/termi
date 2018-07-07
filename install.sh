@@ -33,7 +33,7 @@ function with_omz() {
   git clone git://github.com/robbyrussell/oh-my-zsh.git ${omz_path}
   git clone git://github.com/zsh-users/zsh-autosuggestions ${omz_path}/plugins/zsh-autosuggestions
 
-  # Back up existed zsh configuation files
+  # Back up existing zsh configuation files
   if [ -f ${rc_dpath} ] && [ ! -h ${rc_dpath} ]; then
     mv ${rc_dpath} ${BAK_PATH}/.zshrc
   fi
@@ -43,7 +43,7 @@ function with_omz() {
   export ZSH=${omz_path}
   " ${rc_spath}
 
-  # Link zshrc
+  # Link .zshrc
   ln -sf ${rc_spath} ${rc_dpath}
 
   # Set as default SHELL
