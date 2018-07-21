@@ -8,22 +8,22 @@ BAK_PATH=${TERMI_PATH}/.backup
 
 # main
 function bootstrap() {
-  ensure_brew
-  with_git
+  if ! command -v brew &>/dev/null; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
+  if ! command -v git &>/dev/null; then
+    brew update && brew install git
+  fi
 
   # cp -R . ${TERMI_PATH}
   git clone https://github.com/jl-/termi.git ${TERMI_PATH}
   [ ! -d ${BAK_PATH} ] && mkdir ${BAK_PATH}
 
+  with_git
   with_omz
   with_vim
   with_tmux
-}
-
-function ensure_brew() {
-  if ! command -v brew &>/dev/null; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
 }
 
 function with_git() {
@@ -32,10 +32,6 @@ function with_git() {
   local -r cfg_spath=${TERMI_PATH}/git/gitconfig
   local -r msg_dpath=${HOME}/.gitmessage
   local -r msg_spath=${TERMI_PATH}/git/gitmessage
-
-  if ! command -v git &>/dev/null; then
-    brew update && brew install git
-  fi
 
   # Current global config
   local -r curr_cfg=$(git config --global --list 2>/dev/null)
