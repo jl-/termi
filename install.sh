@@ -13,8 +13,8 @@ function bootstrap() {
   [ ! -d ${BAK_PATH} ] && mkdir ${BAK_PATH}
 
   ensure_brew
-  with_omz
   with_git
+  with_omz
   with_vim
   with_tmux
 }
@@ -23,6 +23,37 @@ function ensure_brew() {
   if ! command -v brew &>/dev/null; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
+}
+
+function with_git() {
+  # .gitconfig, .gitmessage file paths
+  local -r cfg_dpath=${HOME}/.gitconfig
+  local -r cfg_spath=${TERMI_PATH}/git/gitconfig
+  local -r msg_dpath=${HOME}/.gitmessage
+  local -r msg_spath=${TERMI_PATH}/git/gitmessage
+
+  if ! command -v git &>/dev/null; then
+    brew update && brew install git
+  fi
+
+  # Current global config
+  local -r curr_cfg=$(git config --global --list 2>/dev/null)
+
+  # Backup .gitconfig, .gitmessage
+  if [ -f ${cfg_dpath} ] && [ ! -h ${cfg_dpath} ]; then
+    mv ${cfg_dpath} ${BAK_PATH}/.gitconfig
+  fi
+  if [ -f ${msg_dpath} ] && [ ! -h ${msg_dpath} ]; then
+    mv ${msg_dpath} ${BAK_PATH}/.gitmessage
+  fi
+
+  # Link .gitconfig, .gitmessage
+  ln -sf ${cfg_spath} ${cfg_dpath}
+  ln -sf ${msg_spath} ${msg_dpath}
+
+  git config --global commit.template ${msg_dpath}
+  # Append previous global config
+  echo "$curr_cfg" | awk -F '=' '{system("git config --global "$1" \""$2"\"")}' &>/dev/null || true
 }
 
 function with_omz() {
@@ -50,33 +81,6 @@ function with_omz() {
   if [[ ! $SHELL =~ zsh$ ]] && command -v chsh &>/dev/null; then
     chsh -s $(which zsh)
   fi
-}
-
-function with_git() {
-  # .gitconfig, .gitmessage file paths
-  local -r cfg_dpath=${HOME}/.gitconfig
-  local -r cfg_spath=${TERMI_PATH}/git/gitconfig
-  local -r msg_dpath=${HOME}/.gitmessage
-  local -r msg_spath=${TERMI_PATH}/git/gitmessage
-
-  # Current global config
-  local -r curr_cfg=$(git config --global --list 2>/dev/null)
-
-  # Backup .gitconfig, .gitmessage
-  if [ -f ${cfg_dpath} ] && [ ! -h ${cfg_dpath} ]; then
-    mv ${cfg_dpath} ${BAK_PATH}/.gitconfig
-  fi
-  if [ -f ${msg_dpath} ] && [ ! -h ${msg_dpath} ]; then
-    mv ${msg_dpath} ${BAK_PATH}/.gitmessage
-  fi
-
-  # Link .gitconfig, .gitmessage
-  ln -sf ${cfg_spath} ${cfg_dpath}
-  ln -sf ${msg_spath} ${msg_dpath}
-
-  git config --global commit.template ${msg_dpath}
-  # Append previous global config
-  echo "$curr_cfg" | awk -F '=' '{system("git config --global "$1" \""$2"\"")}' &>/dev/null || true
 }
 
 function with_vim() {
