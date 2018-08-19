@@ -50,7 +50,7 @@ ZSH_THEME="pygmalion"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras zsh-autosuggestions tmuxinator nvm rbenv pyenv)
+plugins=(git git-extras zsh-autosuggestions docker tmuxinator nvm rbenv pyenv)
 
 # User configuration
 # #EXPOSE PATH#
@@ -84,4 +84,5 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+alias mux=tmuxinator
 
