@@ -33,6 +33,7 @@ Plug 'quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'digitaltoad/vim-pug'
+Plug 'matze/vim-move'
 
 
 " ======================================
