@@ -12,6 +12,7 @@ set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 set cursorline
 set cursorcolumn
+set relativenumber
 set mouse=a                     "enable mouse, a=all
 
 " This makes vim act like all other editors, buffers can
