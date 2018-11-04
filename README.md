@@ -5,7 +5,7 @@ Personal terminal integration, with git, oh-my-zsh, neovim, emacs, tmux etc.
 
 ## Installation
 
-[rbenv](https://github.com/rbenv/rbenv#homebrew-on-macos), [pyenv](https://github.com/pyenv/pyenv#homebrew-on-macos), [nvm](https://github.com/creationix/nvm#installation)
+[rbenv](https://github.com/rbenv/rbenv#homebrew-on-macos) | [pyenv](https://github.com/pyenv/pyenv#homebrew-on-macos) | [nvm](https://github.com/creationix/nvm#installation)
 
 Installed into `$HOME/.termi` by default
 ```bash
