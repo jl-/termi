@@ -27,6 +27,6 @@ export TERMI_PATH="other path"; sh -c "$(curl -fsSL https://raw.github.com/jl-/t
 
 ## WARNING😈
 
-- It works for me, and that's the whole point. Might probably fail you. Your choice
+- It works for me, and that's the whole point. Might probably fail you.
 - If you tried and it failed, restore your backup files from `${TERMI_PATH}/.backup/*`
 
