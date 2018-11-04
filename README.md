@@ -25,12 +25,8 @@ export TERMI_PATH="other path"; sh -c "$(curl -fsSL https://raw.github.com/jl-/t
     - Then open vim, `:PlugInstall`
 - opinionated git commit template
 
----
-
-### WARNINGS😈
+## WARNING😈
 
 - It works for me, and that's the whole point. Might probably fail you. Your choice
 - If you tried and it failed, restore your backup files from `${TERMI_PATH}/.backup/*`
-
----
 
