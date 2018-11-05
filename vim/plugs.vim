@@ -40,7 +40,8 @@ Plug 'kylef/apiblueprint.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'quramy/tsuquyomi'
 Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 
 " ======================================
 
