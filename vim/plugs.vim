@@ -12,6 +12,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'easymotion/vim-easymotion'
 Plug 'Shougo/vimproc.vim'
+Plug 'yggdroot/indentline'
 
 " ======================================
 " Interface
