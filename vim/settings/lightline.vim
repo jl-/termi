@@ -1,37 +1,18 @@
 let g:lightline = {
-  \ 'colorscheme': 'solarized',
+  \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+  \             [ 'readonly', 'filename' ] ],
   \ },
   \ 'component_function': {
-  \   'fugitive': 'MyFugitive',
-  \   'readonly': 'MyReadonly',
-  \   'filename': 'MyFilename',
-  \ }
+  \   'filename': 'LightlineFilename',
+  \ },
   \ }
 
-function! MyReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "⭤ "
-  else
-    return ""
-  endif
-endfunction
-
-function! MyFugitive()
-  if exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? '⭠ '._ : ''
-  endif
-  return ''
-endfunction
-
-function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-       \ ('' != expand('%') ? expand('%') : '[NoName]')
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
 endfunction
 
 " Use status bar even with single buffer
