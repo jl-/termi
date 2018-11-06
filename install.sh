@@ -109,16 +109,17 @@ function with_vim() {
   fi
 
   # Install plugins
-  vim +PlugInstall +qall!
-  # Load plugin settings
-  sed -i '' -e "s/\" #UNCOMMENT_HOOK#//g" ${TERMI_PATH}/vim/plugs.vim
-
-  # Config Neovim
   if command -v nvim &>/dev/null; then
+    nvim +PlugInstall +qall!
     local -r nvim_dpath=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
     mkdir -p ${nvim_dpath}
     ln -sf ${TERMI_PATH}/vim/nvim_init.vim ${nvim_dpath}/init.vim
+  else
+    vim +PlugInstall +qall!
   fi
+
+  # Load plugin settings
+  sed -i '' -e "s/\" #UNCOMMENT_HOOK#//g" ${TERMI_PATH}/vim/plugs.vim
 }
 
 function with_tmux() {
