@@ -16,17 +16,35 @@ function bootstrap() {
     brew update && brew install git
   fi
 
-  # cp -R . ${TERMI_PATH}
+  if ! command -v rbenv &>/dev/null; then
+    brew update && brew install rbenv
+    rbenv install $(rbenv install -l | grep -v - | tail -1)
+    rbenv global $(rbenv install -l | grep -v - | tail -1)
+  fi
+
+  if ! command -v pyenv &>/dev/null; then
+    brew update && brew install pyenv
+    PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install $(pyenv install -l | grep -v - | tail -1)
+    pyenv global $(pyenv install -l | grep -v - | tail -1)
+  fi
+
+  if ! command -v nvim &>/dev/null; then
+    brew update && brew install neovim
+    gem install neovim
+    pip3 install --user --upgrade neovim
+  fi
+
+  # clone source
   git clone https://github.com/jl-/termi.git ${TERMI_PATH}
   [ ! -d ${BAK_PATH} ] && mkdir ${BAK_PATH}
 
-  with_git
-  with_omz
-  with_vim
-  with_tmux
+  config_git
+  config_omz
+  config_vim
+  config_tmux
 }
 
-function with_git() {
+function config_git() {
   # .gitconfig, .gitmessage file paths
   local -r cfg_dpath=${HOME}/.gitconfig
   local -r cfg_spath=${TERMI_PATH}/git/gitconfig
@@ -53,7 +71,7 @@ function with_git() {
   echo "$curr_cfg" | awk -F '=' '{system("git config --global "$1" \""$2"\"")}' &>/dev/null || true
 }
 
-function with_omz() {
+function config_omz() {
   local -r omz_path=${TERMI_PATH}/zsh/omz
   local -r rc_dpath=${HOME}/.zshrc
   local -r rc_spath=${TERMI_PATH}/zsh/.zshrc
@@ -80,7 +98,7 @@ function with_omz() {
   fi
 }
 
-function with_vim() {
+function config_vim() {
   # .vim, .vimrc paths
   local -r vim_dpath=${HOME}/.vim
   local -r vim_spath=${TERMI_PATH}/vim/.vim
@@ -108,21 +126,16 @@ function with_vim() {
     brew install CMake
   fi
 
-  # Install plugins
-  if command -v nvim &>/dev/null; then
-    nvim +PlugInstall +qall!
-    local -r nvim_dpath=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    mkdir -p ${nvim_dpath}
-    ln -sf ${TERMI_PATH}/vim/nvim_init.vim ${nvim_dpath}/init.vim
-  else
-    vim +PlugInstall +qall!
-  fi
+  nvim +PlugInstall +qall!
+  local -r nvim_dpath=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+  mkdir -p ${nvim_dpath}
+  ln -sf ${TERMI_PATH}/vim/nvim_init.vim ${nvim_dpath}/init.vim
 
   # Load plugin settings
   sed -i '' -e "s/\" #UNCOMMENT_HOOK#//g" ${TERMI_PATH}/vim/plugs.vim
 }
 
-function with_tmux() {
+function config_tmux() {
   local -r cfg_dpath=${HOME}/.tmux.conf
 
   if ! command -v tmux &>/dev/null; then
