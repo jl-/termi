@@ -25,7 +25,6 @@ let s:palette.bright_blue    = '#68A8E4'
 let s:palette.bright_magenta = '#FF5C8F'
 let s:palette.bright_cyan    = '#53FDE9'
 let s:palette.bright_white   = '#FCE8C3'
-
 let s:palette.orange         = '#D75F00'
 let s:palette.bright_orange  = '#FF8700'
 let s:palette.hard_black     = '#121212'
@@ -54,7 +53,7 @@ hi Comment      cterm=NONE ctermfg=245
 hi Todo         cterm=bold ctermfg=203 ctermbg=NONE
 
 hi LineNr       cterm=NONE ctermfg=240
-hi Visual       cterm=NONE ctermbg=237
+hi Visual       cterm=NONE ctermbg=241
 
 hi Pmenu        cterm=NONE ctermfg=NONE ctermbg=240
 hi PmenuSel     cterm=NONE ctermfg=16 ctermbg=220
