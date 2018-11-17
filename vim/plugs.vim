@@ -25,6 +25,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/goyo.vim'
 Plug 'flazz/vim-colorschemes'
+Plug 'drewtempelmeyer/palenight.vim'
 
 " ======================================
 " PL
@@ -40,7 +41,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'digitaltoad/vim-pug'
 Plug 'kylef/apiblueprint.vim'
 Plug 'vim-scripts/taglist.vim'
-Plug 'quramy/tsuquyomi'
+Plug 'leafgarland/typescript-vim'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
