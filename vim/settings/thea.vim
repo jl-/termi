@@ -86,8 +86,8 @@ call s:h("ColorColumn", { "bg": s:palette.cursor_grey }) " used for the columns 
 call s:h("Conceal", {}) " placeholder characters substituted for concealed text (see 'conceallevel')
 call s:h("Cursor", { "fg": s:palette.black, "bg": s:palette.blue }) " the character under the cursor
 call s:h("CursorIM", {}) " like Cursor, but used when in IME mode
-call s:h("CursorColumn", { "bg": s:palette.cursor_grey }) " the screen column that the cursor is in when 'cursorcolumn' is set
-call s:h("CursorLine", { "bg": s:palette.cursor_grey }) " the screen line that the cursor is in when 'cursorline' is set
+call s:h("CursorColumn", { "gui": "BOLD" }) " the screen column that the cursor is in when 'cursorcolumn' is set
+call s:h("CursorLine", { "gui": "BOLD" }) " the screen line that the cursor is in when 'cursorline' is set
 call s:h("Directory", { "fg": s:palette.blue }) " directory names (and other special names in listings)
 call s:h("DiffAdd", { "bg": s:palette.green, "fg": s:palette.black }) " diff mode: Added line
 call s:h("DiffChange", { "bg": s:palette.yellow, "fg": s:palette.black }) " diff mode: Changed line
