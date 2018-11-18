@@ -43,6 +43,7 @@ function bootstrap() {
   config_vim
   config_tmux
   config_ctags
+  config_fzf
 }
 
 function config_git() {
@@ -155,6 +156,11 @@ function config_ctags() {
   brew unlink ctags || true
   brew install --HEAD universal-ctags/universal-ctags/universal-ctags
   ln -sf ${TERMI_PATH}/ctags ${HOME}/.ctags.d
+}
+
+function config_fzf() {
+  brew install fzf
+  $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-bash --no-zsh --no-fish
 }
 
 bootstrap
