@@ -42,6 +42,7 @@ function bootstrap() {
   config_omz
   config_vim
   config_tmux
+  config_ctags
 }
 
 function config_git() {
@@ -150,5 +151,10 @@ function config_tmux() {
   ln -sf ${TERMI_PATH}/tmux/tmux.conf ${cfg_dpath}
 }
 
-bootstrap
+function config_ctags() {
+  brew unlink ctags || true
+  brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+  ln -sf ${TERMI_PATH}/ctags ${HOME}/.ctags.d
+}
 
+bootstrap
