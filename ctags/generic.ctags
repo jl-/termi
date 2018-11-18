@@ -1,0 +1,13 @@
+--recurse=yes
+--tag-relative=yes
+
+--exclude=*.md
+--exclude=\*.map
+--exclude=\*.pug
+--exclude=\*.html
+
+--exclude=tags
+--exclude=.DS_Store
+--exclude=dist
+--exclude=.git*
+--exclude=node_modules
