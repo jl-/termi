@@ -8,7 +8,6 @@ call plug#begin(s:dot_vim_path.'/plugged')
 " =======================================
 Plug 'embear/vim-localvimrc'
 Plug 'matze/vim-move'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'easymotion/vim-easymotion'
 Plug 'Shougo/vimproc.vim'
