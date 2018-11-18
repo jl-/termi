@@ -13,7 +13,8 @@ Plug 'godlygeek/tabular'
 Plug 'easymotion/vim-easymotion'
 Plug 'Shougo/vimproc.vim'
 Plug 'yggdroot/indentline'
-Plug 'wincent/command-t' " `,t`. might need to go to .vim/plugged/command-t and `rank make`
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " ======================================
 " Interface
