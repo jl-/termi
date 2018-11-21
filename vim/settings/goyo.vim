@@ -1,2 +1,5 @@
 let g:goyo_height = "100%"
-let g:goyo_width = 110
+let g:goyo_width = 120
+
+let g:goyo_linenr = 1
+nmap <leader>g :Goyo<CR>
