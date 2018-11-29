@@ -1,7 +1,6 @@
-let s:vim_path = '$VIM_PATH'
-let s:dot_vim_path = s:vim_path.'/.vim'
 let g:plug_timeout = 6000
-call plug#begin(s:dot_vim_path.'/plugged')
+let s:vim_path = "~/.config/nvim"
+call plug#begin(s:vim_path.'/plugged')
 
 " ======================================
 " System
@@ -25,7 +24,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/goyo.vim'
-Plug 'flazz/vim-colorschemes'
 Plug 'drewtempelmeyer/palenight.vim'
 
 " ======================================
@@ -45,7 +43,6 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 
 " ======================================
 
@@ -53,9 +50,8 @@ call plug#end()
 
 " Source plugin settings
 " ===========================
-" Pup all your plugin settings in `$TERMI_PATH/vim/settings`
-" Recommend per plugin per file
+" Pup all plugin settings
 let plugsettings = s:vim_path.'/settings'
 for fpath in split(globpath(plugsettings, '*.vim'), '\n')
-" #UNCOMMENT_HOOK#  exe 'source' fpath
+  exe 'source' fpath
 endfor

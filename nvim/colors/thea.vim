@@ -46,7 +46,7 @@ endfunction
 " Syntax Groups (descriptions and ordering from `:h w18`) {{{
 call s:h("Comment", { "fg": s:palette.comment_grey, "gui": "italic", "cterm": "italic" }) " any comment
 call s:h("Constant", { "fg": s:palette.cyan }) " any constant
-call s:h("String", { "fg": s:palette.green }) " a string constant: "this is a string"
+call s:h("String", { "fg": s:palette.green }) " a string constant: \"this is a string\"
 call s:h("Character", { "fg": s:palette.green }) " a character constant: 'c', '\n'
 call s:h("Number", { "fg": s:palette.dark_yellow }) " a number constant: 234, 0xff
 call s:h("Boolean", { "fg": s:palette.red }) " a boolean constant: TRUE, false
@@ -57,7 +57,7 @@ call s:h("Statement", { "fg": s:palette.purple }) " any statement
 call s:h("Conditional", { "fg": s:palette.purple }) " if, then, else, endif, switch, etc.
 call s:h("Repeat", { "fg": s:palette.purple }) " for, do, while, etc.
 call s:h("Label", { "fg": s:palette.purple }) " case, default, etc.
-call s:h("Operator", { "fg": s:palette.cyan }) " sizeof", "+", "*", etc.
+call s:h("Operator", { "fg": s:palette.cyan }) " sizeof, '+', '*', etc.
 call s:h("Keyword", { "fg": s:palette.red }) " any other keyword
 call s:h("Exception", { "fg": s:palette.purple }) " try, catch, throw
 call s:h("PreProc", { "fg": s:palette.yellow }) " generic Preprocessor
@@ -98,13 +98,13 @@ call s:h("VertSplit", { "fg": s:palette.vertsplit }) " the column separating ver
 call s:h("Folded", { "fg": s:palette.comment_grey }) " line used for closed folds
 call s:h("FoldColumn", {}) " 'foldcolumn'
 call s:h("SignColumn", {}) " column where signs are displayed
-call s:h("IncSearch", { "fg": s:palette.yellow, "bg": s:palette.comment_grey }) " 'incsearch' highlighting; also used for the text replaced with ":s///c"
-call s:h("LineNr", { "fg": s:palette.gutter_fg_grey }) " Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+call s:h("IncSearch", { "fg": s:palette.yellow, "bg": s:palette.comment_grey }) " 'incsearch' highlighting; also used for the text replaced with ':s///c'
+call s:h("LineNr", { "fg": s:palette.gutter_fg_grey }) " Line number for ':number' and ':#' commands, and when 'number' or 'relativenumber' option is set.
 call s:h("CursorLineNr", {}) " Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 call s:h("MatchParen", { "fg": s:palette.blue, "gui": "underline" }) " The character under the cursor or just before it, if it is a paired bracket, and its match.
 call s:h("ModeMsg", {}) " 'showmode' message (e.g., "-- INSERT --")
 call s:h("MoreMsg", {}) " more-prompt
-call s:h("NonText", { "fg": s:palette.special_grey }) " '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line).
+call s:h("NonText", { "fg": s:palette.special_grey }) " '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., '>' displayed when a double-wide character doesn't fit at the end of the line).
 call s:h("Normal", { "fg": s:palette.white, "bg": s:palette.black }) " normal text
 call s:h("Pmenu", { "bg": s:palette.menu_grey }) " Popup menu: normal item.
 call s:h("PmenuSel", { "fg": s:palette.black, "bg": s:palette.blue }) " Popup menu: selected item.
@@ -112,19 +112,19 @@ call s:h("PmenuSbar", { "bg": s:palette.special_grey }) " Popup menu: scrollbar.
 call s:h("PmenuThumb", { "bg": s:palette.white }) " Popup menu: Thumb of the scrollbar.
 call s:h("Question", { "fg": s:palette.purple }) " hit-enter prompt and yes/no questions
 call s:h("Search", { "fg": s:palette.black, "bg": s:palette.yellow }) " Last search pattern highlighting (see 'hlsearch'). Also used for highlighting the current line in the quickfix window and similar items that need to stand out.
-call s:h("SpecialKey", { "fg": s:palette.special_grey }) " Meta and special keys listed with ":map", also for text used to show unprintable characters in the text, 'listchars'. Generally: text that is displayed differently from what it really is.
+call s:h("SpecialKey", { "fg": s:palette.special_grey }) " Meta and special keys listed with ':map', also for text used to show unprintable characters in the text, 'listchars'. Generally: text that is displayed differently from what it really is.
 call s:h("SpellBad", { "fg": s:palette.red, "gui": "underline", "cterm": "underline" }) " Word that is not recognized by the spellchecker. This will be combined with the highlighting used otherwise.
 call s:h("SpellCap", { "fg": s:palette.dark_yellow }) " Word that should start with a capital. This will be combined with the highlighting used otherwise.
 call s:h("SpellLocal", { "fg": s:palette.dark_yellow }) " Word that is recognized by the spellchecker as one that is used in another region. This will be combined with the highlighting used otherwise.
 call s:h("SpellRare", { "fg": s:palette.dark_yellow }) " Word that is recognized by the spellchecker as one that is hardly ever used. spell This will be combined with the highlighting used otherwise.
 call s:h("StatusLine", { "fg": s:palette.white, "bg": s:palette.cursor_grey }) " status line of current window
-call s:h("StatusLineNC", { "fg": s:palette.comment_grey }) " status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+call s:h("StatusLineNC", { "fg": s:palette.comment_grey }) " status lines of not-current windows Note: if this is equal to 'StatusLine' Vim will use '^^^' in the status line of the current window.
 call s:h("TabLine", { "fg": s:palette.comment_grey }) " tab pages line, not active tab page label
 call s:h("TabLineFill", {}) " tab pages line, where there are no labels
 call s:h("TabLineSel", { "fg": s:palette.white }) " tab pages line, active tab page label
 call s:h("Title", { "fg": s:palette.green }) " titles for output from ":set all", ":autocmd" etc.
 call s:h("Visual", { "fg": s:palette.visual_black, "bg": s:palette.visual_grey }) " Visual mode selection
-call s:h("VisualNOS", { "bg": s:palette.visual_grey }) " Visual mode selection when vim is "Not Owning the Selection". Only X11 Gui's gui-x11 and xterm-clipboard supports this.
+call s:h("VisualNOS", { "bg": s:palette.visual_grey }) " Visual mode selection when vim is 'Not Owning the Selection'. Only X11 Gui's gui-x11 and xterm-clipboard supports this.
 call s:h("WarningMsg", { "fg": s:palette.yellow }) " warning messages
 call s:h("WildMenu", { "fg": s:palette.black, "bg": s:palette.blue }) " current match in 'wildmenu' completion
 " }}}
@@ -436,4 +436,5 @@ endif
 
 " Must appear at the end of the file to work around this oddity:
 " https:palette.//groups.google.com/forum/#!msg/vim_dev/afPqwAFNdrU/nqh6tOM87QUJ
-set background=dark
+" set background=dark
+

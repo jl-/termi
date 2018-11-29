@@ -62,7 +62,7 @@ set linebreak    "Wrap lines at convenient points
 " ================ Folds ============================
 
 set foldmethod=indent   "fold based on indent
-set foldnestmax=5       "deepest fold is 3 levels
+set foldnestmax=15       "deepest fold is 3 levels
 set foldlevelstart=1
 
 " ================ Completion =======================

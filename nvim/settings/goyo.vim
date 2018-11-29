@@ -3,3 +3,4 @@ let g:goyo_width = 120
 
 let g:goyo_linenr = 1
 nmap <leader>g :Goyo<CR>
+
