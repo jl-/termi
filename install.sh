@@ -55,8 +55,8 @@ function config_omz() {
 
   ln -sf ${TERMI_ROOT}/zsh ${XDG_CONFIG_HOME}
 
-  git clone git://github.com/robbyrussell/oh-my-zsh.git ${omz_path}
-  git clone git://github.com/zsh-users/zsh-autosuggestions ${omz_path}/plugins/zsh-autosuggestions
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ${omz_path}
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git ${omz_path}/plugins/zsh-autosuggestions
 
   # link .zshrc
   ln -sf ${XDG_CONFIG_HOME}/zsh/.zshrc ${HOME}/.zshrc
