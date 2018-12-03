@@ -14,6 +14,7 @@ Plug 'yggdroot/indentline'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'w0rp/ale'
 
 " ======================================
 " Interface
