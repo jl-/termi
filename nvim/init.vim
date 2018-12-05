@@ -10,6 +10,7 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
+au FocusGained * :checktime
 set cursorline
 set cursorcolumn
 set relativenumber
