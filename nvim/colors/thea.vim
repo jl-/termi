@@ -7,27 +7,26 @@ set t_Co=256
 let g:colors_name='thea'
 
 " Palette {{{
-let s:palette = {
-  \ "red": { "gui": "#ff5370", "cterm": "204", "cterm16": "1" },
-  \ "light_red": { "gui": "#ff869a", "cterm": "204", "cterm16": "1" },
-  \ "dark_red": { "gui": "#BE5046", "cterm": "196", "cterm16": "9" },
-  \ "green": { "gui": "#C3E88D", "cterm": "114", "cterm16": "2" },
-  \ "yellow": { "gui": "#ffcb6b", "cterm": "180", "cterm16": "3" },
-  \ "dark_yellow": { "gui": "#F78C6C", "cterm": "173", "cterm16": "11" },
-  \ "blue": { "gui": "#82b1ff", "cterm": "39", "cterm16": "4" },
-  \ "purple": { "gui": "#c792ea", "cterm": "170", "cterm16": "5" },
-  \ "cyan": { "gui": "#89DDFF", "cterm": "38", "cterm16": "6" },
-  \ "white": { "gui": "#bfc7d5", "cterm": "145", "cterm16": "7" },
-  \ "black": { "gui": "#292D3E", "cterm": "235", "cterm16": "0" },
-  \ "visual_black": { "gui": "NONE", "cterm": "NONE", "cterm16": "0" },
-  \ "comment_grey": { "gui": "#697098", "cterm": "59", "cterm16": "15" },
-  \ "gutter_fg_grey": { "gui": "#4B5263", "cterm": "238", "cterm16": "15" },
-  \ "cursor_grey": { "gui": "#2C323C", "cterm": "236", "cterm16": "8" },
-  \ "visual_grey": { "gui": "#3E4452", "cterm": "237", "cterm16": "15" },
-  \ "menu_grey": { "gui": "#3E4452", "cterm": "237", "cterm16": "8" },
-  \ "special_grey": { "gui": "#3B4048", "cterm": "238", "cterm16": "15" },
-  \ "vertsplit": { "gui": "#181A1F", "cterm": "59", "cterm16": "15" },
-  \}
+let s:palette = {}
+let s:palette.red            = { "gui": "#ff5370", "cterm": "204",  "cterm16": "1" }
+let s:palette.light_red      = { "gui": "#ff869a", "cterm": "204",  "cterm16": "1" }
+let s:palette.dark_red       = { "gui": "#BE5046", "cterm": "196",  "cterm16": "9" }
+let s:palette.green          = { "gui": "#C3E88D", "cterm": "114",  "cterm16": "2" }
+let s:palette.yellow         = { "gui": "#ffcb6b", "cterm": "180",  "cterm16": "3" }
+let s:palette.dark_yellow    = { "gui": "#F78C6C", "cterm": "173",  "cterm16": "11" }
+let s:palette.blue           = { "gui": "#82b1ff", "cterm": "39",   "cterm16": "4" }
+let s:palette.purple         = { "gui": "#c792ea", "cterm": "170",  "cterm16": "5" }
+let s:palette.cyan           = { "gui": "#89DDFF", "cterm": "38",   "cterm16": "6" }
+let s:palette.white          = { "gui": "#bfc7d5", "cterm": "145",  "cterm16": "7" }
+let s:palette.black          = { "gui": "#292D3E", "cterm": "235",  "cterm16": "0" }
+let s:palette.visual_black   = { "gui": "NONE",    "cterm": "NONE", "cterm16": "0" }
+let s:palette.comment_grey   = { "gui": "#697098", "cterm": "59",   "cterm16": "15" }
+let s:palette.gutter_fg_grey = { "gui": "#4B5263", "cterm": "238",  "cterm16": "15" }
+let s:palette.cursor_grey    = { "gui": "#2C323C", "cterm": "236",  "cterm16": "8" }
+let s:palette.visual_grey    = { "gui": "#3E4452", "cterm": "237",  "cterm16": "15" }
+let s:palette.menu_grey      = { "gui": "#3E4452", "cterm": "237",  "cterm16": "8" }
+let s:palette.special_grey   = { "gui": "#3B4048", "cterm": "238",  "cterm16": "15" }
+let s:palette.vertsplit      = { "gui": "#181A1F", "cterm": "59",   "cterm16": "15" }
 " }}}
 
 function! s:h(group, style)
@@ -394,7 +393,7 @@ call s:h("gitcommitOnBranch", {})
 call s:h("gitcommitBranch", { "fg": s:palette.purple })
 call s:h("gitcommitDiscardedType", { "fg": s:palette.red })
 call s:h("gitcommitSelectedType", { "fg": s:palette.green })
-call s:h("gitcommitHeader", {})
+call s:h("gitcommitheader", {})
 call s:h("gitcommitUntrackedFile", { "fg": s:palette.cyan })
 call s:h("gitcommitDiscardedFile", { "fg": s:palette.red })
 call s:h("gitcommitSelectedFile", { "fg": s:palette.green })
@@ -433,8 +432,3 @@ if has("nvim")
   let g:terminal_color_foreground = g:terminal_color_7
 endif
 " }}}
-
-" Must appear at the end of the file to work around this oddity:
-" https:palette.//groups.google.com/forum/#!msg/vim_dev/afPqwAFNdrU/nqh6tOM87QUJ
-" set background=dark
-
