@@ -12,17 +12,24 @@ let s:palette.red            = { "gui": "#ff5370", "cterm": "204",  "cterm16": "
 let s:palette.light_red      = { "gui": "#ff869a", "cterm": "204",  "cterm16": "1" }
 let s:palette.dark_red       = { "gui": "#BE5046", "cterm": "196",  "cterm16": "9" }
 let s:palette.green          = { "gui": "#C3E88D", "cterm": "114",  "cterm16": "2" }
+let s:palette.green          = { "gui": "#5af78e", "cterm": "114",  "cterm16": "2" }
 let s:palette.yellow         = { "gui": "#ffcb6b", "cterm": "180",  "cterm16": "3" }
 let s:palette.dark_yellow    = { "gui": "#F78C6C", "cterm": "173",  "cterm16": "11" }
 let s:palette.blue           = { "gui": "#82b1ff", "cterm": "39",   "cterm16": "4" }
 let s:palette.purple         = { "gui": "#c792ea", "cterm": "170",  "cterm16": "5" }
 let s:palette.cyan           = { "gui": "#89DDFF", "cterm": "38",   "cterm16": "6" }
 let s:palette.white          = { "gui": "#bfc7d5", "cterm": "145",  "cterm16": "7" }
-let s:palette.black          = { "gui": "#292D3E", "cterm": "235",  "cterm16": "0" }
+let s:palette.white_abs      = { "gui": "#ffffff", "cterm": "145",  "cterm16": "7" }
+let s:palette.black          = { "gui": "#121b39", "cterm": "235",  "cterm16": "0" }
+let s:palette.black          = { "gui": "#0c1f31", "cterm": "235",  "cterm16": "0" }
+let s:palette.black          = { "gui": "#2c3643", "cterm": "235",  "cterm16": "0" }
+let s:palette.black          = { "gui": "#253546", "cterm": "235",  "cterm16": "0" }
+let s:palette.black          = { "gui": "#2c3643", "cterm": "235",  "cterm16": "0" }
+let s:palette.black          = { "gui": "#282d40", "cterm": "235",  "cterm16": "0" }
 let s:palette.visual_black   = { "gui": "NONE",    "cterm": "NONE", "cterm16": "0" }
 let s:palette.comment_grey   = { "gui": "#697098", "cterm": "59",   "cterm16": "15" }
-let s:palette.gutter_fg_grey = { "gui": "#4B5263", "cterm": "238",  "cterm16": "15" }
-let s:palette.cursor_grey    = { "gui": "#2C323C", "cterm": "236",  "cterm16": "8" }
+let s:palette.gutter_fg_grey = { "gui": "#6C739A", "cterm": "238",  "cterm16": "15" }
+let s:palette.cursor_grey    = { "gui": "#1E202D", "cterm": "236",  "cterm16": "8" }
 let s:palette.visual_grey    = { "gui": "#3E4452", "cterm": "237",  "cterm16": "15" }
 let s:palette.menu_grey      = { "gui": "#3E4452", "cterm": "237",  "cterm16": "8" }
 let s:palette.special_grey   = { "gui": "#3B4048", "cterm": "238",  "cterm16": "15" }
@@ -31,13 +38,13 @@ let s:palette.vertsplit      = { "gui": "#181A1F", "cterm": "59",   "cterm16": "
 
 function! s:h(group, style)
   execute "highlight" a:group
-    \ "guifg="   (has_key(a:style, "fg")    ? a:style.fg.gui   : "NONE")
-    \ "guibg="   (has_key(a:style, "bg")    ? a:style.bg.gui   : "NONE")
-    \ "guisp="   (has_key(a:style, "sp")    ? a:style.sp.gui   : "NONE")
-    \ "gui="     (has_key(a:style, "gui")   ? a:style.gui      : "NONE")
-    \ "ctermfg=" (has_key(a:style, "fg")    ? a:style.fg.cterm : "NONE")
-    \ "ctermbg=" (has_key(a:style, "bg")    ? a:style.bg.cterm : "NONE")
-    \ "cterm="   (has_key(a:style, "cterm") ? a:style.cterm    : "NONE")
+        \ "guifg="   (has_key(a:style, "fg")    ? a:style.fg.gui   : "NONE")
+        \ "guibg="   (has_key(a:style, "bg")    ? a:style.bg.gui   : "NONE")
+        \ "guisp="   (has_key(a:style, "sp")    ? a:style.sp.gui   : "NONE")
+        \ "gui="     (has_key(a:style, "gui")   ? a:style.gui      : "NONE")
+        \ "ctermfg=" (has_key(a:style, "fg")    ? a:style.fg.cterm : "NONE")
+        \ "ctermbg=" (has_key(a:style, "bg")    ? a:style.bg.cterm : "NONE")
+        \ "cterm="   (has_key(a:style, "cterm") ? a:style.cterm    : "NONE")
 endfunction
 
 " Syntax Groups (descriptions and ordering from `:h w18`) {{{
@@ -97,7 +104,7 @@ call s:h("FoldColumn", {}) " 'foldcolumn'
 call s:h("SignColumn", {}) " column where signs are displayed
 call s:h("IncSearch", { "fg": s:palette.yellow, "bg": s:palette.comment_grey }) " 'incsearch' highlighting; also used for the text replaced with ':s///c'
 call s:h("LineNr", { "fg": s:palette.gutter_fg_grey }) " Line number for ':number' and ':#' commands, and when 'number' or 'relativenumber' option is set.
-call s:h("CursorLineNr", {}) " Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+call s:h("CursorLineNr", { "fg": s:palette.white_abs }) " Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 call s:h("MatchParen", { "fg": s:palette.blue, "gui": "underline" }) " The character under the cursor or just before it, if it is a paired bracket, and its match.
 call s:h("ModeMsg", {}) " 'showmode' message (e.g., "-- INSERT --")
 call s:h("MoreMsg", {}) " more-prompt
@@ -338,10 +345,8 @@ call s:h("rubyRegexpDelimiter", { "fg": s:palette.cyan})
 call s:h("rubySharpBang", { "fg": s:palette.comment_grey})
 call s:h("rubyStringDelimiter", { "fg": s:palette.green})
 call s:h("rubySymbol", { "fg": s:palette.blue})
-
 " ERb
 call s:h("erubyDelimiter", { "fg": s:palette.red })
-
 " Rails
 call s:h("railsAssetPreProc", { "fg": s:palette.comment_grey })
 call s:h("railsAssetInclude", { "fg": s:palette.comment_grey })
