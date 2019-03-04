@@ -5,7 +5,7 @@ call plug#begin(s:vim_path.'/plugged')
 " ======================================
 " System
 " =======================================
-Plug 'embear/vim-localvimrc'
+" Plug 'embear/vim-localvimrc'
 Plug 'matze/vim-move'
 Plug 'godlygeek/tabular'
 Plug 'easymotion/vim-easymotion'
@@ -25,7 +25,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/goyo.vim'
-Plug 'drewtempelmeyer/palenight.vim'
 
 " ======================================
 " PL
@@ -36,10 +35,11 @@ Plug 'mattn/emmet-vim'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-markdown'
 Plug 'posva/vim-vue'
-Plug 'gorodinskiy/vim-coloresque'
+" Plug 'gorodinskiy/vim-coloresque'
+Plug 'ap/vim-css-color'
 Plug 'pangloss/vim-javascript'
 Plug 'digitaltoad/vim-pug'
-Plug 'kylef/apiblueprint.vim'
+" Plug 'kylef/apiblueprint.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mtscout6/syntastic-local-eslint.vim'
