@@ -85,5 +85,5 @@ export EDITOR='nvim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias mux=tmuxinator
-alias vim = nvim
+alias vim=nvim
 
