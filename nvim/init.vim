@@ -100,3 +100,4 @@ exec 'so ' . fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/plugs.vim'
 
 " ================ Custom ========================
 let g:syntastic_javascript_checkers = ['eslint']
+autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG set ft=gitcommit
