@@ -4,7 +4,7 @@ set nocompatible
 
 set number                      "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
-set history=1000                "Store lots of :cmdline history
+set history=300                "Store lots of :cmdline history
 set showcmd                     "Show incomplete cmds down the bottom
 set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
@@ -38,7 +38,6 @@ set nowb
 
 
 " ================ Indentation ======================
-
 set autoindent
 set smartindent
 set smarttab
@@ -48,14 +47,14 @@ set tabstop=2
 set expandtab
 
 " Auto indent pasted text
-nnoremap p p=`]<C-o>
-nnoremap P P=`]<C-o>
+" nnoremap p p=`]<C-o>
+" nnoremap P P=`]<C-o>
 
-filetype plugin on
-filetype indent on
-
-" Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
+" filetype plugin on
+" filetype indent on
+" 
+" " Display tabs and trailing spaces visually
+set list listchars=tab:\ \ ,trail:¬∑
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
@@ -66,7 +65,7 @@ set foldmethod=indent   "fold based on indent
 set foldnestmax=15       "deepest fold is 3 levels
 set foldlevelstart=1
 
-" ================ Completion =======================
+"================ Completion =======================
 
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
@@ -81,14 +80,14 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
-"
-" ================ Scrolling ========================
+
+"================ Scrolling ========================
 
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
-" ================ Search ===========================
+"================ Search ===========================
 
 set incsearch       " Find the next match as we type the search
 set hlsearch        " Highlight searches by default
@@ -99,5 +98,4 @@ set smartcase       " ...unless we type a capital
 exec 'so ' . fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/plugs.vim'
 
 " ================ Custom ========================
-let g:syntastic_javascript_checkers = ['eslint']
-autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG set ft=gitcommit
+" set termguicolors
